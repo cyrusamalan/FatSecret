@@ -1,13 +1,14 @@
 async function searchFood() {
   const query = document.getElementById('searchInput').value;
 
-  const response = await fetch('/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query })
-  });
+const response = await fetch('https://your-fatsecret-api.onrender.com/search', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ query })
+});
+
 
   const data = await response.json();
   const foods = data.foods?.food || [];

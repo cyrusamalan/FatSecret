@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 import base64
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)  # ✅ allows cross-origin requests
 
 CLIENT_ID = 'd1dc16bc0ff248d996719575cabf705c'
 CLIENT_SECRET = 'c42e2819e65a4cae9014b0e9d05477e5'
