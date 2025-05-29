@@ -1,11 +1,8 @@
 async function searchFood() {
   const query = document.getElementById('searchInput').value;
-
   const response = await fetch('https://fatsecret.onrender.com/search', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query })
   });
 
@@ -20,14 +17,39 @@ async function searchFood() {
   }
 
   foods.forEach(food => {
+    const foodContainer = document.createElement('div');
+    foodContainer.style.marginBottom = '15px';
+
     const p = document.createElement('p');
     p.textContent = `${food.food_name} (${food.brand_name || 'Generic'})`;
     p.style.cursor = 'pointer';
-    p.onclick = () => getNutrition(food.food_id);  // 👈 attaches click
-    resultsDiv.appendChild(p);
-  });
+    p.style.fontWeight = 'bold';
 
-  console.log("🍕 API raw response:", data);
+    const nutritionDiv = document.createElement('div');
+    nutritionDiv.style.marginLeft = '10px';
+    nutritionDiv.style.display = 'none';
+
+    p.onclick = async () => {
+      const nutrition = await getNutrition(food.food_id);
+      if (!nutrition) {
+        nutritionDiv.innerHTML = '<i>Nutrition data not available.</i>';
+      } else {
+        nutritionDiv.innerHTML = `
+          <ul>
+            <li>Calories: ${nutrition.calories}</li>
+            <li>Protein: ${nutrition.protein}g</li>
+            <li>Fat: ${nutrition.fat}g</li>
+            <li>Carbs: ${nutrition.carbohydrate}g</li>
+          </ul>
+        `;
+      }
+      nutritionDiv.style.display = 'block';
+    };
+
+    foodContainer.appendChild(p);
+    foodContainer.appendChild(nutritionDiv);
+    resultsDiv.appendChild(foodContainer);
+  });
 }
 
 async function getNutrition(food_id) {
@@ -39,15 +61,5 @@ async function getNutrition(food_id) {
 
   const data = await response.json();
   const serving = data.food?.servings?.serving;
-
-  if (!serving) {
-    alert("Nutrition data not available.");
-    return;
-  }
-
-  alert(`🍕 Nutrition per serving:
-- Calories: ${serving.calories}
-- Protein: ${serving.protein}g
-- Fat: ${serving.fat}g
-- Carbs: ${serving.carbohydrate}g`);
+  return serving || null;
 }
