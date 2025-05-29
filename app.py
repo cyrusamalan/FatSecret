@@ -47,11 +47,13 @@ def search():
         }
 
         response = requests.get(search_url, headers=headers, params=params)
+        print("🔍 FatSecret response:", response.text)  # ← add this
         return jsonify(response.json())
 
     except Exception as e:
         print("🔥 Error in /search route:", e)
         return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
