@@ -55,6 +55,27 @@ def search():
         print("🔥 Error in /search route:", e)
         return jsonify({'error': str(e)}), 500
 
+@app.route('/food_details', methods=['POST'])
+def food_details():
+    try:
+        food_id = request.json.get('food_id')
+        access_token = get_access_token()
+
+        response = requests.get(
+            'https://platform.fatsecret.com/rest/server.api',
+            headers={'Authorization': f'Bearer {access_token}'},
+            params={
+                'method': 'food.get',
+                'food_id': food_id,
+                'format': 'json'
+            }
+        )
+
+        return jsonify(response.json())
+    except Exception as e:
+        print("🔥 Error in /food_details:", e)
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
