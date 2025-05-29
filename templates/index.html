@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Search</title>
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <h1>Food Search</h1>
+  <input type="text" id="searchInput" placeholder="Enter food..." />
+  <button onclick="searchFood()">Search</button>
+  <div id="results"></div>
+</body>
+</html>
