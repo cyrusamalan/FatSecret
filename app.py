@@ -7,8 +7,9 @@ import base64
 app = Flask(__name__)
 CORS(app)  # ✅ This enables CORS for all origins
 
-CLIENT_ID = 'd1dc16bc0ff248d996719575cabf705c'
-CLIENT_SECRET = 'c42e2819e65a4cae9014b0e9d05477e5'
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+
 
 def get_access_token():
     url = 'https://oauth.fatsecret.com/connect/token'
