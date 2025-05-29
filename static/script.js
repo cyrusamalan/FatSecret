@@ -60,6 +60,19 @@ async function getNutrition(food_id) {
   });
 
   const data = await response.json();
-  const serving = data.food?.servings?.serving;
-  return serving || null;
+
+  const servingData = data.food?.servings?.serving;
+
+  if (!servingData) return null;
+
+  // ✅ Handle both object and array response
+  const serving = Array.isArray(servingData) ? servingData[0] : servingData;
+
+  return {
+    calories: serving.calories,
+    protein: serving.protein,
+    fat: serving.fat,
+    carbohydrate: serving.carbohydrate
+  };
 }
+

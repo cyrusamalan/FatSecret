@@ -71,6 +71,7 @@ def food_details():
             }
         )
 
+        print("🍽️ Food details response:", response.text)  # Log to confirm
         return jsonify(response.json())
     except Exception as e:
         print("🔥 Error in /food_details:", e)
