@@ -4,6 +4,9 @@ import base64
 from flask_cors import CORS
 import os
 
+@app.route('/')
+def index():
+    return render_template('script.html')
 
 app = Flask(__name__)
 if __name__ == '__main__':
@@ -32,9 +35,7 @@ def get_access_token():
     return response.json()['access_token']  # this is where the error is
 
 
-@app.route('/')
-def index():
-    return render_template('script.html')
+
 
 
 @app.route('/search', methods=['POST'])
@@ -68,4 +69,6 @@ def search():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+
