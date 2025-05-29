@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fatsecret-flask
+    env: python3
+    buildCommand: ""
+    startCommand: python3 app.py
+    envVars:
+      - key: CLIENT_ID
+        value: d1dc16bc0ff248d996719575cabf705c
+      - key: CLIENT_SECRET
+        value: c42e2819e65a4cae9014b0e9d05477e5
