@@ -26,4 +26,8 @@ async function searchFood() {
     p.textContent = `${food.food_name} (${food.brand_name || 'Generic'})`;
     resultsDiv.appendChild(p);
   });
+
+  console.log("🍕 API raw response:", data);
+
+
 }

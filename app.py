@@ -39,7 +39,7 @@ def search():
         search_url = 'https://platform.fatsecret.com/rest/server.api'
         params = {
             'method': 'foods.search',
-            'search_expression': query,
+            'search_expression': query.strip().lower(),
             'format': 'json'
         }
         headers = {
